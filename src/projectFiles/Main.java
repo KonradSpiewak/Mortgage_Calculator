@@ -1,8 +1,7 @@
 package projectFiles;
 
 import projectFiles.model.InputData;
-import projectFiles.service.PrintingService;
-import projectFiles.service.PrintingServiceImpl;
+import projectFiles.service.*;
 
 import java.math.BigDecimal;
 
@@ -13,10 +12,12 @@ public class Main {
                 .withMonthsDuration(BigDecimal.valueOf(160));
 
         PrintingService printingService = new PrintingServiceImpl();
-        printingService.printInputDataInfo(inputData);
+        RateCalculationService rateCalculationService = new RateCalculationServiceIml();
+        MortgageCalculationService mortgageCalculationService = new MortgageCalculationServiceImpl(
+                printingService,
+                rateCalculationService
+        );
 
-
-
-
+        mortgageCalculationService.calculate(inputData);
     }
 }
